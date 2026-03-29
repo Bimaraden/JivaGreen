@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Fields: id, name, email, points, role, avatar, ecoStats, joinedAt, isBlocked
+    //
+    // Collection: wastes
+    // Fields: id, title, material, price, condition, sellerId, sellerName, status, imageUrl, description, createdAt, latitude, longitude, address, isRecycle, composition
+    //
+    // Collection: withdrawal_requests
+    // Fields: id, userId, userName, points, amount, method, accountNumber, status, date
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN' ||
+         request.auth.token.email == "hdhdg9089@gmail.com" ||
+         request.auth.token.email == "admin@bookflow.com"); // Default admins
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'points', 'role', 'joinedAt']) &&
+             data.id is string && data.name is string && data.email is string &&
+             data.points is number && data.role in ['USER', 'ADMIN'] &&
+             data.joinedAt is string;
+    }
+
+    function isValidWaste(data) {
+      return data.keys().hasAll(['id', 'title', 'material', 'price', 'sellerId', 'status', 'createdAt']) &&
+             data.id is string && data.title is string && data.material is string &&
+             data.price is number && data.sellerId is string &&
+             data.status in ['PENDING_APPROVAL', 'AVAILABLE', 'PENDING_PICKUP', 'PICKED_UP', 'RECYCLED', 'SOLD'] &&
+             data.createdAt is string;
+    }
+
+    function isValidWithdrawal(data) {
+      return data.keys().hasAll(['id', 'userId', 'points', 'amount', 'method', 'accountNumber', 'status', 'date']) &&
+             data.id is string && data.userId is string && data.points is number &&
+             data.amount is number && data.method is string && data.accountNumber is string &&
+             data.status in ['PENDING', 'COMPLETED', 'REJECTED'] &&
+             data.date is string;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+      allow update: if (isOwner(userId) || isAdmin()) && isValidUser(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /wastes/{wasteId} {
+      allow read: if true; // Public catalog
+      allow create: if isAuthenticated() && isValidWaste(request.resource.data) && request.resource.data.sellerId == request.auth.uid;
+      allow update: if (isAuthenticated() && (resource.data.sellerId == request.auth.uid || isAdmin())) && isValidWaste(request.resource.data);
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.sellerId == request.auth.uid);
+    }
+
+    match /withdrawal_requests/{requestId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && isValidWithdrawal(request.resource.data) && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin() && isValidWithdrawal(request.resource.data);
+      allow delete: if isAdmin();
+    }
+  }
+}

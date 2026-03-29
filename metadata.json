@@ -1,0 +1,9 @@
+{
+  "name": "WasteFlow - AI Waste Marketplace",
+  "description": "A deep learning-powered marketplace for waste recycling. Scan your waste with AI to analyze raw material composition and profit potential.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera",
+    "microphone"
+  ]
+}

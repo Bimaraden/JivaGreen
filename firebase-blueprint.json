@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "points": { "type": "number" },
+        "role": { "type": "string", "enum": ["USER", "ADMIN"] },
+        "avatar": { "type": "string" },
+        "ecoStats": {
+          "type": "object",
+          "properties": {
+            "treesGrown": { "type": "number" },
+            "leavesCount": { "type": "number" },
+            "co2Saved": { "type": "number" },
+            "waterSaved": { "type": "number" }
+          }
+        },
+        "joinedAt": { "type": "string" },
+        "isBlocked": { "type": "boolean" }
+      },
+      "required": ["id", "name", "email", "points", "role", "joinedAt"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "Book listing information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "price": { "type": "number" },
+        "condition": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING_APPROVAL", "AVAILABLE", "PENDING_PICKUP", "PICKED_UP", "RECYCLED", "SOLD"] },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "address": { "type": "string" },
+        "isRecycle": { "type": "boolean" }
+      },
+      "required": ["id", "title", "author", "price", "sellerId", "status", "createdAt"]
+    },
+    "WithdrawalRequest": {
+      "title": "WithdrawalRequest",
+      "description": "Request to withdraw points",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "points": { "type": "number" },
+        "amount": { "type": "number" },
+        "method": { "type": "string" },
+        "accountNumber": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "COMPLETED", "REJECTED"] },
+        "date": { "type": "string" }
+      },
+      "required": ["id", "userId", "points", "amount", "method", "accountNumber", "status", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/books/{bookId}": {
+      "schema": "Book",
+      "description": "Book listings"
+    },
+    "/withdrawal_requests/{requestId}": {
+      "schema": "WithdrawalRequest",
+      "description": "Withdrawal requests"
+    }
+  }
+}
