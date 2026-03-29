@@ -1,8 +1,25 @@
+@import url("https://db.onlinewebfonts.com/c/caee1354bdde994a941282f227254c91?family=CCBattleScarredOpen");
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@font-face {
+  font-family: "CCBattleScarredOpen";
+  src: url("https://db.onlinewebfonts.com/t/caee1354bdde994a941282f227254c91.eot");
+  src: url("https://db.onlinewebfonts.com/t/caee1354bdde994a941282f227254c91.eot?#iefix") format("embedded-opentype"),
+       url("https://db.onlinewebfonts.com/t/caee1354bdde994a941282f227254c91.woff2") format("woff2"),
+       url("https://db.onlinewebfonts.com/t/caee1354bdde994a941282f227254c91.woff") format("woff"),
+       url("https://db.onlinewebfonts.com/t/caee1354bdde994a941282f227254c91.ttf") format("truetype"),
+       url("https://db.onlinewebfonts.com/t/caee1354bdde994a941282f227254c91.svg#CCBattleScarredOpen") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.brand-font {
+  font-family: "CCBattleScarredOpen", cursive, sans-serif;
 }
 
 body {

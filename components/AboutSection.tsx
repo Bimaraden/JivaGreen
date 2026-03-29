@@ -12,12 +12,12 @@ const AboutSection: React.FC = () => {
         {/* Left Content */}
         <div className="space-y-8 md:space-y-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-tight">
-            Apa itu <span className="text-emerald-400">WasteFlow</span>?
+            Apa itu <span className="text-emerald-400 brand-font">JivaGreen</span>?
           </h2>
 
           <div className="space-y-6 md:space-y-8 max-w-xl">
             <p className="text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-relaxed text-emerald-50/90">
-              <span className="font-black text-white">WasteFlow</span> adalah platform <span className="italic">Smart Waste Management</span> berbasis AI. Kami membantu Anda mengelola sampah secara cerdas dan menguntungkan.
+              <span className="font-black text-white">JivaGreen</span> adalah platform Marketplace Daur Ulang Kertas & Buku berbasis digital. Kami membantu Anda mengubah kertas dan buku bekas menjadi nilai ekonomi nyata sekaligus berkontribusi pada kelestarian lingkungan. Dengan sistem marketplace dua arah, kami menghubungkan individu, UMKM pengepul, dan pabrik daur ulang dalam satu ekosistem yang terintegrasi. Cukup unggah kertas atau buku bekas Anda, kami estimasikan harganya secara otomatis, dan tim kami siap menjemput langsung dari lokasi Anda. Setiap transaksi menghasilkan poin reward yang bisa ditukar diskon atau donasi pohon — karena di JivaGreen, berbuat baik untuk bumi juga menguntungkan Anda.
             </p>
 
             <p className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed text-emerald-100/70">
@@ -55,7 +55,7 @@ const AboutSection: React.FC = () => {
             </div>
 
             <p className="text-xs sm:text-sm md:text-base leading-relaxed text-emerald-100/70 font-medium">
-              Sekitar 80% sampah di lautan adalah plastik. Dengan memilah dan menjual sampah plastik Anda melalui WasteFlow, Anda membantu mencegah polusi laut.
+              Sekitar 80% sampah di lautan adalah plastik. Dengan memilah dan menjual sampah plastik Anda melalui <span className="brand-font">JivaGreen</span>, Anda membantu mencegah polusi laut.
             </p>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-2 md:pt-4">

@@ -573,7 +573,7 @@ const App: React.FC = () => {
             <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600">
                <i className="fas fa-seedling"></i>
             </div>
-            <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">WasteFlow Platform v4.0 • AI Powered</p>
+            <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em] brand-font">JivaGreen Platform v4.0 • AI Powered</p>
          </div>
       </footer>
       </div>

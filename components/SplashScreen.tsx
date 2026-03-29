@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import logoImg from './asset/logo.png';
 
 const SplashScreen: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -22,8 +23,8 @@ const SplashScreen: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
         {/* Logo Container */}
         <div className="relative w-48 h-48 md:w-64 md:h-64 animate-logo-in">
           <img 
-            src="https://images.squarespace-cdn.com/content/v1/5e94819777d6127c569d1560/1601332733971-S6C7I7I6B2Q2K2H6S6S6/Logo+Icon.png" // Placeholder URL to simulate the uploaded logo
-            alt="WasteFlow Logo" 
+            src={logoImg}
+            alt="JivaGreen Logo" 
             className="w-full h-full object-contain rounded-[3rem] shadow-2xl border-4 border-white/10"
             onError={(e) => {
               // Fallback if image fails - showing the sprout concept via icon
@@ -36,10 +37,10 @@ const SplashScreen: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
       </div>
 
       <div className="mt-12 text-center animate-fade-up">
-        <h1 className="text-4xl font-black text-white tracking-tighter mb-2">WasteFlow</h1>
+        <h1 className="text-4xl font-black text-white tracking-tighter mb-2 brand-font">JivaGreen</h1>
         <div className="flex items-center justify-center gap-3">
           <div className="h-1 w-12 bg-emerald-400 rounded-full"></div>
-          <p className="text-emerald-200 text-[10px] font-black uppercase tracking-[0.4em]">Eco Marketplace</p>
+          <p className="text-emerald-200 text-[10px] font-black uppercase tracking-[0.4em] brand-font">Eco Marketplace</p>
           <div className="h-1 w-12 bg-emerald-400 rounded-full"></div>
         </div>
       </div>

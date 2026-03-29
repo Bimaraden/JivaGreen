@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { User, UserRole } from '../types';
+import logoImg from './asset/logo.png';
 
 interface NavbarProps {
   user: User | null;
@@ -28,16 +29,16 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, onNavigate, currentPage
         >
           <div className="w-10 h-10 md:w-12 md:h-12 overflow-hidden rounded-[1rem] md:rounded-[1.2rem] shadow-lg shadow-emerald-950/50 group-hover:rotate-6 transition-all duration-500 border border-emerald-500/30 bg-emerald-900 flex items-center justify-center p-1.5 md:p-2">
             <img 
-              src="https://images.squarespace-cdn.com/content/v1/5e94819777d6127c569d1560/1601332733971-S6C7I7I6B2Q2K2H6S6S6/Logo+Icon.png" 
+              src={logoImg} 
               alt="Logo" 
               className="w-full h-full object-contain"
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg md:text-xl font-black text-white tracking-tighter leading-none">
-              WasteFlow
+            <span className="text-lg md:text-xl font-black text-white tracking-tighter leading-none brand-font">
+              JivaGreen
             </span>
-            <span className="text-[7px] md:text-[8px] font-black text-emerald-400 uppercase tracking-[0.3em] mt-1">Eco Ecosystem</span>
+            <span className="text-[7px] md:text-[8px] font-black text-emerald-400 uppercase tracking-[0.3em] mt-1 brand-font">Eco Ecosystem</span>
           </div>
         </div>
 
@@ -224,7 +225,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, onNavigate, currentPage
           </div>
           
           <div className="text-center pt-2">
-            <p className="text-[8px] font-black text-emerald-800 uppercase tracking-widest">WasteFlow AI v4.0</p>
+            <p className="text-[8px] font-black text-emerald-800 uppercase tracking-widest brand-font">JivaGreen AI v4.0</p>
           </div>
         </div>
       </div>

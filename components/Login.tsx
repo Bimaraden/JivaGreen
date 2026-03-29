@@ -4,6 +4,7 @@ import { auth, db, googleProvider } from '../firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { UserRole, User } from '../types';
+import logoImg from './asset/logo.png';
 
 interface LoginProps {
   onLogin: (user: User) => void;
@@ -179,7 +180,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToSetup }) => {
         
         <div className="text-center mb-10">
           <div className="w-20 h-20 rounded-[2.2rem] overflow-hidden mx-auto mb-6 shadow-2xl border-4 border-emerald-50/50">
-            <img src="https://images.squarespace-cdn.com/content/v1/5e94819777d6127c569d1560/1601332733971-S6C7I7I6B2Q2K2H6S6S6/Logo+Icon.png" className="w-full h-full object-contain" alt="WasteFlow" />
+            <img src={logoImg} className="w-full h-full object-contain" alt="JivaGreen" />
           </div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter">
             {isRegister ? 'Gabung Ekosistem' : 'Masuk Cloud'}

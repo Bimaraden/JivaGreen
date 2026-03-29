@@ -18,8 +18,8 @@ export const MOCK_USER: User = {
 // Fix: Add missing ecoStats and joinedAt properties to MOCK_ADMIN
 export const MOCK_ADMIN: User = {
   id: 'admin1',
-  name: 'Admin WasteFlow',
-  email: 'admin@wasteflow.com',
+  name: 'Admin JivaGreen',
+  email: 'admin@jivagreen.com',
   points: 0,
   role: UserRole.ADMIN,
   avatar: 'https://picsum.photos/seed/admin/100/100',
