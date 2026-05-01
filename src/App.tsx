@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Navbar from './components/Navbar';
 import EnvironmentalWidget from './components/EnvironmentalWidget';
 import WasteList from './components/WasteList';
@@ -11,12 +12,11 @@ import Features from './components/Features';
 import SplashScreen from './components/SplashScreen';
 import CheckoutModal from './components/CheckoutModal';
 import Profile from './components/Profile';
-import AboutSection from './components/AboutSection';
 import SecurityGuard from './components/SecurityGuard';
 import WasteScanner from './components/WasteScanner';
 import ErrorBoundary from './components/ErrorBoundary';
 import Footer from './components/Footer';
-import { db, auth, testConnection, handleFirestoreError, OperationType } from './firebase';
+import { db, auth, testConnection, handleFirestoreError, OperationType } from '@/firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { 
   collection, 
@@ -34,6 +34,8 @@ import {
 } from 'firebase/firestore';
 import { storage } from './lib/storage';
 import { Waste, User, UserRole, WasteStatus, WithdrawalRequest } from './types';
+
+import About from './components/About';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -115,9 +117,18 @@ const App: React.FC = () => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       try {
         if (firebaseUser) {
-          const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+          // Transform ID logic
+          const originalUid = firebaseUser.uid;
+          const displayId = originalUid.startsWith('gen-lang-client-') 
+            ? originalUid.replace('gen-lang-client-', 'BRS-client-')
+            : (originalUid.includes('-') ? originalUid : `BRS-client-${originalUid.substring(0, 8)}`);
+
+          const userDoc = await getDoc(doc(db, 'users', originalUid));
           if (userDoc.exists()) {
             const userData = userDoc.data() as User;
+            // Ensure ID in state matches our custom format
+            userData.id = displayId;
+            
             if (userData.isBlocked) {
               await auth.signOut();
               setUser(null);
@@ -151,7 +162,7 @@ const App: React.FC = () => {
             ].includes(firebaseUser.email?.toLowerCase().trim() || '');
 
             const newUser: User = {
-              id: firebaseUser.uid,
+              id: displayId,
               name: firebaseUser.displayName || 'Pengguna',
               email: firebaseUser.email || '',
               points: isAdminEmail ? 1000 : 10,
@@ -160,7 +171,7 @@ const App: React.FC = () => {
               joinedAt: new Date().toISOString(),
               ecoStats: { treesGrown: 0, leavesCount: 0, co2Saved: 0, waterSaved: 0 }
             };
-            await setDoc(doc(db, 'users', firebaseUser.uid), newUser);
+            await setDoc(doc(db, 'users', originalUid), newUser);
             setUser(newUser);
             storage.setCurrentUser(newUser);
           }
@@ -544,12 +555,12 @@ const App: React.FC = () => {
                        else setSelectedWasteForBuy(waste);
                      }}
                    />
-                 </div>
+                  </div>
               </div>
             </div>
           </div>
         )}
-        {currentPage === 'about' && <AboutSection />}
+        {currentPage === 'about' && <About />}
         {currentPage === 'scanner' && <WasteScanner />}
         {currentPage === 'sell' && user && <SellForm onSell={async (data) => {
            try {
