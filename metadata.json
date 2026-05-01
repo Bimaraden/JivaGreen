@@ -1,0 +1,9 @@
+{
+  "name": "Jivagreen",
+  "description": "Premium rminal for circular economy. Smart recycling, marketplace, and environmental intelligence.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera",
+    "microphone"
+  ]
+}
